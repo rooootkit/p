@@ -1,2 +1,13 @@
 #!/bin/bash
-echo '|' | xclip -selection clipboard
+
+# Get the public IP address
+public_ip=$(ifconfig | grep 'inet ' | awk '{print $2}' | grep -v '127.0.0.1' | head -n 1)
+
+# Get the hostname of the current user
+hostname=$(whoami)
+
+# Craft the SSH command
+ssh_command="ssh ${hostname}@${public_ip}"
+
+# Print the SSH command
+echo "SSH command: ${ssh_command}"
